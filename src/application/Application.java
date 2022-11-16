@@ -17,7 +17,7 @@ public class Application {
     private VideoPlayer videoPlayer;
     private SearchBar searchBar;
 
-    public List<Video> showVideos() {}//-> display list of video
+    public List<Video> showVideos() {return null;}//-> display list of video
     public void settings(){}//-> open settings option
     public void search(String searchQuery){}//-> where user can search
     public void openMenu(){}//-> open where login signOut methods will there
