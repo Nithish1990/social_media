@@ -1,7 +1,7 @@
 package user;
 
-import application.constant.category.Category;
-import application.generator.Generator;
+import application.utilities.constant.category.Category;
+import application.utilities.generator.Generator;
 import application.video.Thumbnail;
 
 import java.util.ArrayList;

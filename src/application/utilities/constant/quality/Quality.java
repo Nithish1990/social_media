@@ -1,4 +1,4 @@
-package application.constant.quality;
+package application.utilities.constant.quality;
 
 public enum Quality{
     A(144), B(240);

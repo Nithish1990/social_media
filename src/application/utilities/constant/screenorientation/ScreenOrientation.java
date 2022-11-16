@@ -1,4 +1,4 @@
-package application.constant.screenorientation;
+package application.utilities.constant.screenorientation;
 
 public enum ScreenOrientation {
     LANDSCAPE,PORTRAIT;

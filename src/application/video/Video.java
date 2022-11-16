@@ -1,8 +1,8 @@
 package application.video;
 
-import application.constant.category.AgeCategory;
-import application.constant.category.Category;
-import application.generator.Generator;
+import application.utilities.constant.category.AgeCategory;
+import application.utilities.constant.category.Category;
+import application.utilities.generator.Generator;
 import user.Channel;
 
 import java.sql.Time;

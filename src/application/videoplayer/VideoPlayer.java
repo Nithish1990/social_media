@@ -1,8 +1,8 @@
 package application.videoplayer;
 
-import application.constant.quality.Quality;
-import application.constant.screenorientation.ScreenOrientation;
-import application.constant.speed.Speed;
+import application.utilities.constant.quality.Quality;
+import application.utilities.constant.screenorientation.ScreenOrientation;
+import application.utilities.constant.speed.Speed;
 import application.video.Video;
 
 import java.sql.Time;

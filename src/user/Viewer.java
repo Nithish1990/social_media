@@ -1,6 +1,6 @@
 package user;
 
-import application.constant.country.Country;
+import application.utilities.constant.country.Country;
 import application.video.Thumbnail;
 import application.video.Video;
 

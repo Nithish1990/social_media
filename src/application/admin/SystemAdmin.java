@@ -1,15 +1,12 @@
 package application.admin;
 
 import application.Application;
-import application.generator.RevenueGenerator;
+import application.utilities.generator.RevenueGenerator;
 import application.video.Video;
 import user.Channel;
 import user.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class SystemAdmin {
     private static int id;

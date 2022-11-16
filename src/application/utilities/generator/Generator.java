@@ -1,4 +1,4 @@
-package application.generator;
+package application.utilities.generator;
 
 public class Generator {
     public static String urlGenerate(int id,String channelName){
