@@ -22,7 +22,7 @@ public class Database {
     private List<Advertisement> ads;
 
     public Database(){
-        trendingVideoURL = new Thumbnail[10];
+        trendingVideoURL = new Thumbnail[9];
         viewerDB = new HashMap<>();
         contentCreatorBucket = new HashMap<>();
         videoBucket= new HashMap<>();

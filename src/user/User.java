@@ -35,7 +35,6 @@ public abstract class User {
     private List<Channel>channelList;
     private Channel currentChannel;
 
-
     //objets
     private Application application;
     private LocalStorage localStorage;
@@ -109,6 +108,7 @@ public abstract class User {
     }
 
     public User(Application application){
+
         this.application = application;
         this.watchHistory = new Stack<>();
         this.previousVideo = new Stack<>();

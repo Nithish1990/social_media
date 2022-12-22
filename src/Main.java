@@ -7,41 +7,21 @@ import user.Viewer;
 
 public class Main {
     static Application application;
+    static User user;
     public static void main(String[] args) {
         // doubt main does create app
         application = new Application();
-        User user = new Viewer(application);
+        user = new Viewer(application);
 
-        int userInputInt;
-        while (true) {
-            userInputInt = CustomScanner.scanInt("1 account login/signIN \n3 Exit");
-            switch (userInputInt) {
-                case 1:
-                    userInputInt = CustomScanner.scanInt("1. SignUP\n2. LogIn");
-                    switch (userInputInt){
-                        case 1:
-                            user.signUp();
-                            break;
-                        case 2:
-                            user.logIn();
-                            break;
-                    }
-                    break;
-                case 2:
-                    System.out.println("Exit");
-                    return;
-                case 3:
-                    viewer((Viewer)user);
-                    break;
-            }
-        }
+        account();
+
     }
     public static void contentCreator(User contentCreator){
         while (true) {
             int userInputInt = CustomScanner.scanInt();
 //            switch (userInputInt) {
 //                case 1:// creating video
-//                    VideoClip ideo = contentCreator.makeVideo();
+//                    VideoClip video = contentCreator.makeVideo();
 //                    contentCreator.getLocalStorage().storeVideo(video.getVideoTitle(), video);
 //                    break;
 //                case 2:// channel switching
@@ -77,6 +57,32 @@ public class Main {
 //                    List <Thumbnail> videosList = viewer.search(CustomScanner.scanString("search...?"));
 
                     break;
+            }
+        }
+    }
+    public static void account(){
+        int userInputInt;
+        viewer((Viewer)user);
+        while (true) {
+            userInputInt = CustomScanner.scanInt("1 account login/signIN \n3 Exit");
+            switch (userInputInt) {
+                case 1:
+                    userInputInt = CustomScanner.scanInt("1. SignUP\n2. LogIn");
+                    switch (userInputInt){
+                        case 1:
+                            user.signUp();
+                            break;
+                        case 2:
+                            user.logIn();
+                            break;
+                        case 3:
+
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("Exit");
+                    return;
             }
         }
     }
