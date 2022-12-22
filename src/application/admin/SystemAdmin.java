@@ -3,7 +3,7 @@ package application.admin;
 import application.Application;
 import application.utilities.generator.RevenueGenerator;
 import application.video.Video;
-import user.Channel;
+import user.channel.Channel;
 import user.User;
 
 import java.util.ArrayList;

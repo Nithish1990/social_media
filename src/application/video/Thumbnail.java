@@ -1,18 +1,17 @@
 package application.video;
 
-import user.Channel;
+import user.channel.Channel;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class Thumbnail {
     private String videoTitle;
     private final Channel channel;
-    private final Time duration;
+    private final int duration;//to be change to time;
     private final LocalDateTime uploadedDateAndTime;
     private final String url;
 
-    public Thumbnail(String videoTitle, Channel channel, Time duration, LocalDateTime uploadedDateAndTime, String url) {
+    public Thumbnail(String videoTitle, Channel channel, int duration, LocalDateTime uploadedDateAndTime, String url) {
         this.videoTitle = videoTitle;
         this.channel = channel;
         this.duration = duration;
@@ -36,7 +35,7 @@ public class Thumbnail {
         return channel;
     }
 
-    public Time getDuration() {
+    public int getDuration() {
         return duration;
     }
 

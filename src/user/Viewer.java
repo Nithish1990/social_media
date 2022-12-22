@@ -1,172 +1,156 @@
 package user;
 
+import application.Application;
 import application.utilities.constant.country.Country;
-import application.video.Thumbnail;
-import application.video.Video;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Stack;
 
 public class Viewer extends User{
+    @Override
+    public Viewer signUp() {
+        return getApplication().signUp();
+    }
+    @Override
+    public Viewer logIn(){
+        return getApplication().logIn();
+    }
+
+    public Viewer(Application application) {
+        super(application);
+    }
+    public Viewer(String name,String emailId, String password,String number,String dob,Country Country){
+        super(name,emailId,password,number,dob);
+    }
+
+    @Override
+    public void selectVideoAndWatch(int position) {
+
+    }
+
+    @Override
+    public void updateAccount() {
+
+    }
+
+    @Override
+    public void interactToTheVideo() {
+
+    }
+
 
     //attribute
-    private String userName;
-    private final String userEmailID;
-    private String password;
-    private String userPhoneNumber;
-    private Date dataOfBirth;
-    private byte userAge;
-    private Country country;
-    private boolean primeUser;//doubt
-    private boolean isBannedUser;// doubt // if user is banned cant post cmt
-    private ArrayList<Channel> subscriptionList;
-    private ArrayList<Thumbnail> watchLaterVideo;
-    private Stack<Thumbnail> notification;
-
-
-    //methods
-    public void updateAccount() {}//-> user can change username and change to prime etc
-    public void interactToTheVideo(){}//-> like share subscribe comments
-    public void switchToChannel(){}//-> if he wants to change to channel
-    public void deleteAccount(){}//-> deleting from the database
-    public void refresh(){}
-
-    @Override
-    public List<Video> search(String query) {
-        return null;
-    }
-
-    @Override
-    public void selectVideoAndWatch(int position) {}
-
-    //methods of video Player
-    @Override
-    public void volumeChange(int volume) {}
-
-    @Override
-    public void mute() {}
-
-    @Override
-    public void seek(int timeStamp) {}
-
-    @Override
-    public void fastForward(int speed) {}
-
-    @Override
-    public void pauseOrPlay() {}
-
-    @Override
-    public void plus30Seconds() {}
-
-    @Override
-    public void minus30Seconds() {}
-
-    @Override
-    public void changeScreenOrientation() {}
-
-    @Override
-    public void playNext() {}
-
-    @Override
-    public void playPrevious() {}
-
-    @Override
-    public void reportTheVideo() {}
-
-    @Override
-    public void changeScreen() {}
-
-    //constructor and getter setters
-    public Viewer(String userName, String userEmailID, String password, String userPhoneNumber,
-                  Date dataOfBirth, byte userAge, Country country) {
-
-        this.userName = userName;
-        this.userEmailID = userEmailID;
-        this.password = password;
-        this.userPhoneNumber = userPhoneNumber;
-        this.dataOfBirth = dataOfBirth;
-        this.userAge = userAge;
-        this.country = country;
-        this.primeUser = false;
-        this.isBannedUser = false;
-        this.subscriptionList = new ArrayList<>();
-        this.watchLaterVideo = new ArrayList<>();
-        this.notification = new Stack<>();
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserEmailID() {
-        return userEmailID;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserPhoneNumber() {
-        return userPhoneNumber;
-    }
-
-    public void setUserPhoneNumber(String userPhoneNumber) {
-        this.userPhoneNumber = userPhoneNumber;
-    }
-
-    public Date getDataOfBirth() {
-        return dataOfBirth;
-    }
-
-    public void setDataOfBirth(Date dataOfBirth) {
-        this.dataOfBirth = dataOfBirth;
-    }
-
-    public byte getUserAge() {
-        return userAge;
-    }
-
-    public void setUserAge(byte userAge) {
-        this.userAge = userAge;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-
-    public boolean isBannedUser() {
-        return isBannedUser;
-    }
-
-    public boolean isPrimeUser() {
-        return primeUser;
-    }
-
-    public ArrayList<Channel> getSubscriptionList() {
-        return subscriptionList;
-    }
-
-    public ArrayList<Thumbnail> getWatchLaterVideo() {
-        return watchLaterVideo;
-    }
-
-    public Stack<Thumbnail> getNotification() {
-        return notification;
-    }
+//    private String userName;
+//    private final String userEmailID;
+//    private String password;
+//    private String userPhoneNumber;
+//    private String dataOfBirth;//will be changed to date
+//    private boolean eighteenPlus;// naming is not convenient to be change
+//    private Country country;
+//    private boolean primeUser;//doubt
+//    private boolean isBannedUser;// doubt // if user is banned cant post cmt
+//    private ArrayList<Channel> subscriptionList;
+//    private ArrayList<Thumbnail> watchLaterVideo;
+//    private Stack<Thumbnail> notification;
+//
+//
+//    //methods
+//    public void updateAccount() {}//-> user can change username and change to prime etc
+//    public void interactToTheVideo(){}//-> like share subscribe comments
+//    public void deleteAccount(){}//-> deleting from the database
+//    public void refresh(){}
+//
+//
+//    @Override
+//    public void selectVideoAndWatch(int position) {}
+//
+//
+//
+//    //constructor and getter setters
+//    public Viewer(String userName, String userEmailID, String password, String userPhoneNumber,
+//                  String dataOfBirth, Country country, Application application) {
+//        super(application);
+//        this.userName = userName;
+//        this.userEmailID = userEmailID;
+//        this.password = password;
+//        this.userPhoneNumber = userPhoneNumber;
+//        this.dataOfBirth = dataOfBirth;
+//        this.eighteenPlus = DataCalculator.is18Plus();
+//        this.country = country;
+//        this.primeUser = false;
+//        this.isBannedUser = false;
+//        this.subscriptionList = new ArrayList<>();
+//        this.watchLaterVideo = new ArrayList<>();
+//        this.notification = new Stack<>();
+//    }
+//
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
+//
+//    public String getUserEmailID() {
+//        return userEmailID;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public String getUserPhoneNumber() {
+//        return userPhoneNumber;
+//    }
+//
+//    public void setUserPhoneNumber(String userPhoneNumber) {
+//        this.userPhoneNumber = userPhoneNumber;
+//    }
+//
+//    public String getDataOfBirth() {
+//        return dataOfBirth;
+//    }
+//
+//    public void setDataOfBirth(String dataOfBirth) {
+//        this.dataOfBirth = dataOfBirth;
+//    }
+//
+//    public boolean isEighteenPlus() {
+//        return eighteenPlus;
+//    }
+//
+//    public void setEighteenPlus(boolean eighteenPlus) {
+//        this.eighteenPlus = eighteenPlus;
+//    }
+//
+//    public Country getCountry() {
+//        return country;
+//    }
+//
+//    public void setCountry(Country country) {
+//        this.country = country;
+//    }
+//
+//
+//    public boolean isBannedUser() {
+//        return isBannedUser;
+//    }
+//
+//    public boolean isPrimeUser() {
+//        return primeUser;
+//    }
+//
+//    public ArrayList<Channel> getSubscriptionList() {
+//        return subscriptionList;
+//    }
+//
+//    public ArrayList<Thumbnail> getWatchLaterVideo() {
+//        return watchLaterVideo;
+//    }
+//
+//    public Stack<Thumbnail> getNotification() {
+//        return notification;
+//    }
 }
