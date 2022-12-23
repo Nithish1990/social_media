@@ -3,7 +3,11 @@ package application.videoplayer;
 import application.utilities.constant.quality.Quality;
 import application.utilities.constant.screenorientation.ScreenOrientation;
 import application.utilities.constant.speed.Speed;
+import application.utilities.helper.CustomScanner;
+import application.video.Thumbnail;
 import application.video.Video;
+import user.VideoClip;
+import user.Viewer;
 
 import java.sql.Time;
 
@@ -15,6 +19,18 @@ public class VideoPlayer {
     private Video video;
     private ScreenOrientation screenOrientation;
 
+
+    public void playVideo(Video video) {
+        while (true) {
+            System.out.println("Video is playing" + video.getVideoTitle() + " Channel name:" + video.channel.getChannelName()+" "+video.channel.getSubscribersCount());
+            int userInput = CustomScanner.scanInt("Enter ");
+            switch (userInput){
+                case 1:
+                    break;
+                default: return;
+            }
+        }
+    }
     public void muteAndUnMute(){}
     public void volumeChange(int volume){}
     public void seek(int timeStamp){}

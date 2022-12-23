@@ -1,12 +1,39 @@
 package user.channel;
 
+import application.Application;
 import application.utilities.constant.country.Country;
+import user.User;
 
-public class ContentCreator{
+public class ContentCreator extends User {
 
 
-    public ContentCreator(String name, String emailId, String password, String number, String dob, Country Country) {
-        super();
+    public ContentCreator(String name, String emailId, String password, String number, String dob, Application application) {
+        super(name,emailId,password,number,dob,application);
+    }
+
+    @Override
+    public void selectVideoAndWatch(int position) {
+
+    }
+
+    @Override
+    public void updateAccount() {
+
+    }
+
+    @Override
+    public void interactToTheVideo() {
+
+    }
+
+    @Override
+    public User signUp() {
+        return null;
+    }
+
+    @Override
+    public User logIn() {
+        return null;
     }
 
 

@@ -57,14 +57,15 @@ public abstract class User {
     public Channel createChannel(String name, String about, Category category){
         return new Channel(name,about,category,this);
     }
-    public Video makeVideo(){
+    public VideoClip makeVideo(){
         String title = CustomScanner.scanString("Enter Title: ");
         String description = CustomScanner.scanString("Enter Desc: ");
-
-        return new Video(title,currentChannel,description,true, AgeCategory.U,10,null,null);
+        return new VideoClip(title,10,10);
+//        return new Video(title,currentChannel,description,true, AgeCategory.U,10,null,null);
     }//-> user can make video
     public void uploadVideo(VideoClip video){
         getApplication().uploadVideo(video,this);
+        this.getCurrentChannel();
     }// -> user will upload video from local storage
     public void withdraw(int amountEarned){}
     // mediaPlayer methods
@@ -85,7 +86,7 @@ public abstract class User {
 
   //constructor
 
-    public User(String userName, String userEmailID, String password, String userPhoneNumber, String dataOfBirth) {
+    public User(String userName, String userEmailID, String password, String userPhoneNumber, String dataOfBirth,Application application) {
 
         this.userName = userName;
         this.userEmailID = userEmailID;
@@ -103,7 +104,7 @@ public abstract class User {
         this.previousVideo = new Stack<>();
         this.amountEarned = 0;
         this.channelList = new ArrayList<>();
-        this.application = new Application();
+        this.application = application;
         this.localStorage = new LocalStorage();
     }
 
@@ -239,6 +240,9 @@ public abstract class User {
     }
 
     public Channel getCurrentChannel() {
+        if(currentChannel == null){
+            currentChannel = createChannel(this.userName,"Default",Category.DEFAULT);
+        }
         return currentChannel;
     }
 

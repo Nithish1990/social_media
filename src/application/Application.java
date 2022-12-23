@@ -33,25 +33,28 @@ public class Application {
 
 
     //Authenticate
-    public Viewer logIn(){
-        return authenticator.logIn();
+    public Viewer logIn(User user){
+        return authenticator.logIn(user);
     }
-    public Viewer signUp(){
-        return authenticator.signUp();
+    public Viewer signUp(User user){
+        return authenticator.signUp(user);
     }
     public List<Thumbnail> search(String searchQuery){
         return searchBar.searchByName(searchQuery);
     }//-> where user can search
     public void openMenu(){}//-> open where login signOut methods will there
 
-
+    /*
+    Sigleton
+     */
+    private static Application application;
     public void uploadVideo(VideoClip videoClip, User user){
+        System.out.println("Upload");
         if(user.getCurrentChannel()!=null) {
             try {
                 String title = CustomScanner.scanString("Enter video Title: "), description = CustomScanner.scanString("Enter Video Description");
                 Video video = new Video(title, user.getCurrentChannel(), description, true, AgeCategory.UA, videoClip.duration, Category.DEFAULT, new ArrayList<>());
                 database.addVideo(Generator.urlGenerate(1, user.getCurrentChannel().getChannelName()), video);
-                System.out.println(database.getVideoBucket());
             } catch (Exception e) {
                 System.err.println("Not uploaded");
             }
@@ -63,15 +66,23 @@ public class Application {
     public void display(){
         display.display(database.getTrendingVideoURL());
     }
-    public Application() {
+    public void playVideo(int position){
+        videoPlayer.playVideo(getDatabase().getVideoBucket().get(getDatabase().getTrendingVideoURL()[position].getUrl()));
+    }
+    private Application() {
         this.appTitle = "inum mudivu pannala";
-        this.database = new Database();
-        this.authenticator = new Authenticator(database);
+        this.database = Database.installDatabase();
+        this.authenticator = new Authenticator(database,this);
         this.videoPlayer = new VideoPlayer();
         this.searchBar = new SearchBar();
         this.display = new Display();
     }
-
+    public static Application installApplication(){
+        if(application == null){
+            application = new Application();
+        }
+        return application;
+    }
 
     public String getAppTitle() {
         return appTitle;

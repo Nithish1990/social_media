@@ -6,23 +6,23 @@ import application.utilities.constant.country.Country;
 public class Viewer extends User{
     @Override
     public Viewer signUp() {
-        return getApplication().signUp();
+        return getApplication().signUp(this);
     }
     @Override
     public Viewer logIn(){
-        return getApplication().logIn();
+        return getApplication().logIn(this);
     }
 
     public Viewer(Application application) {
         super(application);
     }
-    public Viewer(String name,String emailId, String password,String number,String dob,Country Country){
-        super(name,emailId,password,number,dob);
+    public Viewer(String name,String emailId, String password,String number,String dob,Country Country,Application application){
+        super(name,emailId,password,number,dob,application);
     }
 
     @Override
     public void selectVideoAndWatch(int position) {
-
+        getApplication().playVideo(position);
     }
 
     @Override

@@ -5,13 +5,14 @@ import application.database.Database;
 import application.utilities.constant.country.Country;
 import application.utilities.helper.CustomScanner;
 import sun.lwawt.macosx.CSystemTray;
+import user.User;
 import user.Viewer;
 
 
 
 public class Authenticator {
     private Database database;
-    public Viewer logIn(){
+    public Viewer logIn(User user){
         String emailId = CustomScanner.scanString("Enter emailId"),password = CustomScanner.scanString("Enter password");
         Viewer viewer = database.getUser(emailId);
         if(viewer != null) {
@@ -27,7 +28,7 @@ public class Authenticator {
         }
         return viewer;
     }
-    public Viewer signUp(){
+    public Viewer signUp(User user){
         String name = CustomScanner.scanString("Enter your name");
         String emailId = CustomScanner.scanString("Enter your EmailId");
         emailId = Validation.checkEmailIdIsValid(emailId);
@@ -39,7 +40,7 @@ public class Authenticator {
         dob = Validation.validateDOB(dob);
         Viewer viewer = null;
         if(database.getUser(emailId)==null) {
-            viewer = new Viewer(name, emailId, password, number, dob, Country.INDIA);
+            viewer = new Viewer(name, emailId, password, number, dob, Country.INDIA,user.getApplication());
             database.addUser(viewer);
         }
         else {
@@ -52,7 +53,10 @@ public class Authenticator {
 
     }
 
-    public Authenticator(Database database){
+    public Authenticator(Database database,Application application){
         this.database = database;
+
+        // for testing
+        database.addUser(new Viewer("Test","Test1234@gmail.com","Test1234@gmail.com","9876543210","11/12/2001",Country.INDIA,application));
     }
 }

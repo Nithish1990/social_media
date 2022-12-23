@@ -9,6 +9,7 @@ public class LocalStorage {
     private Map<String, VideoClip> videos;
     // methods
     public void storeVideo(String name, VideoClip video){
+        System.out.println("Storing");
         if(videos.getOrDefault(name,null)==null){
             videos.put(name,video);
         }else{
