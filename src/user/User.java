@@ -57,11 +57,11 @@ public abstract class User {
     public Channel createChannel(String name, String about, Category category){
         return new Channel(name,about,category,this);
     }
-    public VideoClip makeVideo(){
+    public void makeVideo(){
         String title = CustomScanner.scanString("Enter Title: ");
-        String description = CustomScanner.scanString("Enter Desc: ");
-        return new VideoClip(title,10,10);
-//        return new Video(title,currentChannel,description,true, AgeCategory.U,10,null,null);
+        System.out.println("Recording");
+        int userInput = CustomScanner.scanInt("Enter to stop");
+        localStorage.storeVideo(title,new VideoClip(title,10,10));
     }//-> user can make video
     public void uploadVideo(VideoClip video){
         getApplication().uploadVideo(video,this);
@@ -108,7 +108,7 @@ public abstract class User {
         this.localStorage = new LocalStorage();
     }
 
-    public User(Application application){
+    public User(Application application){// for those didnt signed but can use
 
         this.application = application;
         this.watchHistory = new Stack<>();

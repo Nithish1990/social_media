@@ -35,7 +35,10 @@ public class Viewer extends User{
 
     }
 
-
+    public void display(){
+        System.out.println(this.getUserEmailID()==null?"Name less Creature":"Current user is :"+this.getUserName());
+        getApplication().display();
+    }
     //attribute
 //    private String userName;
 //    private final String userEmailID;

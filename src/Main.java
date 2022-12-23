@@ -3,7 +3,6 @@ import application.utilities.helper.CustomScanner;
 import user.VideoClip;
 import user.User;
 import user.Viewer;
-import user.channel.ContentCreator;
 
 
 public class Main {
@@ -23,17 +22,19 @@ public class Main {
 
             switch (userInputInt) {
                 case 1:// creating video
-                    VideoClip video = contentCreator.makeVideo();
-                    contentCreator.getLocalStorage().storeVideo(video.getName(), video);
+                    contentCreator.makeVideo();// TO BE CHANGE WAT CHANGE? content creator will make video and it auto maticaly stores
+//                    contentCreator.getLocalStorage().storeVideo(video.getName(), video);
                     break;
                 case 2:// channel switching
                     contentCreator.switchToChannel();// to be implemented
                     break;
                 case 3://uploading video
-                    VideoClip selectedVideo = contentCreator.getLocalStorage().getVideo("1");
+                    System.out.println(contentCreator.getLocalStorage());
+                    String selectedVideoName = CustomScanner.scanString("Enter Name for uploading");
+                    VideoClip selectedVideo = contentCreator.getLocalStorage().getVideo(selectedVideoName);
                     contentCreator.uploadVideo(selectedVideo);
                     break;
-                case 4:// add admins
+                case 4:// add admins4
                     break;
                 case 5:// settings
                     break;
@@ -45,10 +46,10 @@ public class Main {
         }
     }
     public static void viewer(Viewer viewer){
-        System.out.println(viewer.getUserEmailID()==null?"Name less Creature":"Current user is :"+viewer.getUserName());
+
         while (true){
-            viewer.getApplication().display();
-            int userInputInt = CustomScanner.scanInt("1 select Video \n2 refresh\n3 search");
+            viewer.display();
+            int userInputInt = CustomScanner.scanInt("Options are \n1 select Video \n2 refresh\n3 search");
             switch (userInputInt){
                 case 1:
                     viewer.selectVideoAndWatch(0);
@@ -58,10 +59,6 @@ public class Main {
                     break;
                 case 3:// search
 //                    List <Thumbnail> videosList = viewer.search(CustomScanner.scanString("search...?"));
-
-                    break;
-                case 4://interaction
-                    
 
                     break;
                 default:

@@ -1,7 +1,6 @@
 package user;
 
-//import application.video.Video;
-import user.VideoClip;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +12,7 @@ public class LocalStorage {
         if(videos.getOrDefault(name,null)==null){
             videos.put(name,video);
         }else{
-            System.out.println("File already exits");
+            System.out.println("File NAME already exits");
         }
     }
     public VideoClip getVideo(String name){
@@ -21,6 +20,6 @@ public class LocalStorage {
     }
     public LocalStorage(){
         videos = new HashMap<>();
-        videos.put("1",new VideoClip());
+        videos.put("testv1",new VideoClip());
     }
 }

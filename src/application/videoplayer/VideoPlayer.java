@@ -23,7 +23,7 @@ public class VideoPlayer {
     public void playVideo(Video video) {
         while (true) {
             System.out.println("Video is playing" + video.getVideoTitle() + " Channel name:" + video.channel.getChannelName()+" "+video.channel.getSubscribersCount());
-            int userInput = CustomScanner.scanInt("Enter ");
+            int userInput = CustomScanner.scanInt("Enter\n1 to Interact");
             switch (userInput){
                 case 1:
                     break;
