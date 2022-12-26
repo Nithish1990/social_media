@@ -2,7 +2,9 @@ package user.channel;
 
 import application.Application;
 import application.utilities.constant.country.Country;
+import application.utilities.helper.CustomScanner;
 import user.User;
+import user.VideoClip;
 
 public class ContentCreator extends User {
 
@@ -36,12 +38,47 @@ public class ContentCreator extends User {
         return null;
     }
 
+    @Override
+    public void switchToChannel() {
+        setCurrentChannel(getChannelList().get(0));
+    }
+
+    @Override
+    public Channel createChannel() {
+        return getApplication().createChannel(this);
+    }
+
+    public void uploadVideo(){
+        getApplication().uploadVideo(this);
+    }
+
+    @Override
+    public void display() {
+        System.out.println("C "+this.getUserName());
+        getApplication().display();
+    }
+
+    @Override
+    public void viewProfile() {
+        System.out.println(getUserName());
+        System.out.println(getUserEmailID());
+        System.out.println(getCountry());
+        System.out.println(getUserPhoneNumber());
+        System.out.println(getSubscriptionList());
+        System.out.println(getChannelList());
+    }
+
+    public void makeVideo(){
+
+        // storing video no needed to get input but
+        String title = CustomScanner.scanString("Enter Title: ");
+        System.out.println("Recording");
+        int userInput = CustomScanner.scanInt("Enter to stop");
+        getLocalStorage().storeVideo(title,new VideoClip(title,10,10));
+    }//-> user can make video
 
 ////    methods
 //
-//    public void switchToChannel(){
-//        currentChannel = channelList.get(0);
-//    }
 //    public Channel createChannel(String name, String about, Category category){return new Channel(name,about,category,this);};
 //    public Video makeVideo(){
 //        String title = CustomScanner.scanString("Enter Title: ");

@@ -1,8 +1,10 @@
 import application.Application;
 import application.utilities.helper.CustomScanner;
-import user.VideoClip;
+import application.video.Thumbnail;
+import user.NonSignedVIewer;
 import user.User;
-import user.Viewer;
+
+import java.util.List;
 
 
 public class Main {
@@ -11,28 +13,23 @@ public class Main {
     public static void main(String[] args) {
         // doubt main does create app
         application = Application.installApplication();
-        user = new Viewer(application);
-
-        account();
-//        contentCreator(user);
+        user = new NonSignedVIewer(application);
+        open();
     }
-    public static void contentCreator(User contentCreator){
+    public static void contentCreator(){
+
         while (true) {
             int userInputInt = CustomScanner.scanInt("1. CreateVideo\n2.Channel Switching\n3.Upload Video");
 
             switch (userInputInt) {
                 case 1:// creating video
-                    contentCreator.makeVideo();// TO BE CHANGE WAT CHANGE? content creator will make video and it auto maticaly stores
-//                    contentCreator.getLocalStorage().storeVideo(video.getName(), video);
+                   user.makeVideo();
                     break;
                 case 2:// channel switching
-                    contentCreator.switchToChannel();// to be implemented
+                    user.switchToChannel();// to be implemented
                     break;
                 case 3://uploading video
-                    System.out.println(contentCreator.getLocalStorage());
-                    String selectedVideoName = CustomScanner.scanString("Enter Name for uploading");
-                    VideoClip selectedVideo = contentCreator.getLocalStorage().getVideo(selectedVideoName);
-                    contentCreator.uploadVideo(selectedVideo);
+                    user.uploadVideo();
                     break;
                 case 4:// add admins4
                     break;
@@ -40,16 +37,16 @@ public class Main {
                     break;
                 case 6:// open dashBoard
                     break;
-                case 9://logout
+                default://exit this menu
                     return;
             }
         }
     }
-    public static void viewer(Viewer viewer){
-
+    public static void viewer(){
+        User viewer = user;
         while (true){
             viewer.display();
-            int userInputInt = CustomScanner.scanInt("Options are \n1 select Video \n2 refresh\n3 search");
+            int userInputInt = CustomScanner.scanInt("Options are \n1 select Video \n2 refresh\n3 search\n5 View Profile");
             switch (userInputInt){
                 case 1:
                     viewer.selectVideoAndWatch(0);
@@ -58,7 +55,17 @@ public class Main {
                     viewer.refresh();
                     break;
                 case 3:// search
-//                    List <Thumbnail> videosList = viewer.search(CustomScanner.scanString("search...?"));
+                    List<Thumbnail> videosList;// = viewer.search(CustomScanner.scanString("search...?"));
+
+                    break;
+                case 4:
+                    viewer.interactToTheVideo();
+                    break;
+                case 5:// view profile
+
+                    viewer.viewProfile();
+                    break;
+                case 6://change to content creator manually
 
                     break;
                 default:
@@ -66,11 +73,11 @@ public class Main {
             }
         }
     }
-    public static void account(){
+    public static void open(){
         int userInputInt;
         while (true) {
-            viewer((Viewer)user);
-            userInputInt = CustomScanner.scanInt("1 account login/signIN \n2 to Upload\n9 Exit");
+            viewer();
+            userInputInt = CustomScanner.scanInt("1 Account login/signIN \n2 to Upload\n9 Exit");
             switch (userInputInt) {
                 case 1:
                     userInputInt = CustomScanner.scanInt("1. SignUP\n2. LogIn");
@@ -79,17 +86,16 @@ public class Main {
                             user = user.signUp();
                             break;
                         case 2:
-                            user = user.logIn();
-                            // validate null pointer exp becoz user if not foung null occuring
+                            user = user.logIn(); // if null occured then return should non signed Viewer //done
                             break;
                     }
                     break;
                 case 2:
-                    contentCreator(user);
+                    contentCreator();
                     break;
                 case 9:
-                    System.out.println("Exit");
-                    return;
+                    System.out.println("Exiting.....!!!");
+                    System.exit(0);
             }
         }
     }

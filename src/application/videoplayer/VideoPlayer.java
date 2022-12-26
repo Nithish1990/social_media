@@ -18,17 +18,14 @@ public class VideoPlayer {
     private Time currentPosition;
     private Video video;
     private ScreenOrientation screenOrientation;
-
+    private Video currentVideo;
 
     public void playVideo(Video video) {
         while (true) {
-            System.out.println("Video is playing" + video.getVideoTitle() + " Channel name:" + video.channel.getChannelName()+" "+video.channel.getSubscribersCount());
-            int userInput = CustomScanner.scanInt("Enter\n1 to Interact");
-            switch (userInput){
-                case 1:
-                    break;
-                default: return;
-            }
+            System.out.println("Video is playing: " + video.getVideoTitle() + " Channel name:" + video.channel.getChannelName()+" "+video.channel.getSubscribersCount());
+            currentVideo = video;
+            int userInput = CustomScanner.scanInt();
+            if(userInput == 9)return;
         }
     }
     public void muteAndUnMute(){}
@@ -43,4 +40,10 @@ public class VideoPlayer {
     public void playPrevious(){}
     public void reportTheVideo(){}
     public void changeScreen(){}
+
+
+    public Video getCurrentVideo() {
+        return currentVideo;
+    }
+
 }

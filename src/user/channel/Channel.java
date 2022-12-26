@@ -1,8 +1,10 @@
 package user.channel;
 
+import application.user.ViewerProfile;
 import application.utilities.constant.category.Category;
 import application.utilities.generator.Generator;
 import application.video.Thumbnail;
+import application.video.Video;
 import user.User;
 import user.channel.members.Member;
 
@@ -22,9 +24,10 @@ public class Channel{
     private List<User> haveAccess;
     private List<Thumbnail> uploadedVideo;
     private List<Member> channelMembers;
+    private ViewerProfile viewerProfile;
     //constructor
 
-    public Channel(String channelName, String about, Category category, User contentCreator) {
+    public Channel(String channelName, String about, Category category, ViewerProfile viewerProfile) {
 
         this.channelName = channelName;
         this.isBannedChannel = false;
@@ -37,6 +40,8 @@ public class Channel{
         this.haveAccess = new ArrayList<>();
         this.uploadedVideo = new ArrayList<>();
         this.channelMembers = new ArrayList<>();
+        this.viewerProfile = viewerProfile;
+
     }
 
     // getter setters

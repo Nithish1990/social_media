@@ -1,16 +1,16 @@
 package application.database;
 
+import application.user.ViewerProfile;
+
 import application.utilities.constant.category.AgeCategory;
 import application.utilities.constant.category.Category;
-import application.utilities.constant.country.Country;
 import application.utilities.generator.Generator;
 import application.video.Advertisement;
 import application.video.Thumbnail;
 import application.video.Video;
-import user.User;
+import user.Viewer;
 import user.channel.Channel;
 import user.channel.ContentCreator;
-import user.Viewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class Database {
     private Thumbnail[] trendingVideo;// when ppl click refresh
-    private Map<String, Viewer> viewerDB;
+    private Map<String, ViewerProfile> viewerDB;
     private Map<String, ContentCreator> contentCreatorBucket;
     private Map<String, Video> videoBucket;
     private List<Advertisement> ads;
@@ -33,9 +33,9 @@ public class Database {
         contentCreatorBucket = new HashMap<>();
         videoBucket= new HashMap<>();
         ads = new ArrayList<>();
-//        injectVideo();
+        injectVideo();
     }
-    public static Database installDatabase(){
+    public static Database setUpDatabase(){
         if(database == null){
             database = new Database();
         }
@@ -45,15 +45,9 @@ public class Database {
 
     public void addVideo(String url,Video video){
         videoBucket.put(url,video);
-        System.out.println(videoBucket);
         trendingVideo[0] = video.getThumbnail();
     }
-    public void addUser(Viewer viewer){
-        viewerDB.put(viewer.getUserEmailID(),viewer);
-    }
-    public Viewer getUser(String emailId){
-        return viewerDB.getOrDefault(emailId,null);
-    }
+
 
 
 
@@ -65,7 +59,7 @@ public class Database {
         return trendingVideo;
     }
 
-    public Map<String, Viewer> getViewerDB() {
+    public Map<String, ViewerProfile> getViewerDB() {
         return viewerDB;
     }
 
@@ -84,14 +78,11 @@ public class Database {
 
 
 
-    private void injectVideo(){
-//        Channel channel = new Channel("Testing", "Test", Category.DEFAULT,new ContentCreator("Test", "Test1234@gmail.com",
-//                "Test1234@gmail.com", "9876543210", "11/12/01"));
-//        Video video1 = new Video("test1",channel,"testing",true, AgeCategory.UA,10, Category.NEWS,null),
-//                video2 = new Video("test2",channel,"testing",true, AgeCategory.UA,10, Category.NEWS,null);
-//        videoBucket.put(Generator.urlGenerate(1,"Utube"),video1);
-//        videoBucket.put("url1",video2);
-//        trendingVideo[0] = video1.getThumbnail();
-//        trendingVideo[1] = video2.getThumbnail();
-    }
+    private void injectVideo(){// for testing debugging
+
+        ViewerProfile viewerProfile = new ViewerProfile("TEST_DEMO","Test1234@gmail.com","Test1234@gmail.com","9876543210","11/12/2001");
+        Channel channel = new Channel("TEST","TESTING",Category.DEFAULT,viewerProfile);
+        Video video = new Video("TESTING",channel,"TESTinG",true, AgeCategory.UA,10,Category.DEFAULT,new ArrayList<>());
+        addVideo(Generator.urlGenerate(1,channel.getChannelName()),video);
+        viewerDB.put("Test1234@gmail.com",viewerProfile); }
 }

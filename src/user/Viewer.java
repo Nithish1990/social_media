@@ -1,23 +1,63 @@
 package user;
 
 import application.Application;
-import application.utilities.constant.country.Country;
+import application.user.ViewerProfile;
+import application.utilities.helper.CustomScanner;
+import user.channel.Channel;
 
 public class Viewer extends User{
     @Override
-    public Viewer signUp() {
-        return getApplication().signUp(this);
+    public User signUp() {
+        return getApplication().signUp();
     }
     @Override
-    public Viewer logIn(){
-        return getApplication().logIn(this);
+    public User logIn(){
+        return getApplication().logIn();
+    }
+
+    @Override
+    public void switchToChannel() {
+        setCurrentChannel(getChannelList().get(0));
+    }
+
+    @Override
+    public Channel createChannel() {
+        return getApplication().createChannel(this);
+    }
+
+    @Override
+    public void makeVideo() {
+        String title = CustomScanner.scanString("Enter Title: ");
+        System.out.println("Recording");
+        int userInput = CustomScanner.scanInt("Enter to stop");
+        getLocalStorage().storeVideo(title,new VideoClip(title,10,10));
+    }
+
+    @Override
+    public void uploadVideo() {
+        getApplication().uploadVideo(this);
+    }
+
+    @Override
+    public void display() {
+        System.out.println(" "+this.getUserName());
+        getApplication().display();
+    }
+
+    @Override
+    public void viewProfile() {
+        System.out.println(getUserName());
+        System.out.println(getUserEmailID());
+        System.out.println(getCountry());
+        System.out.println(getSubscriptionList());
+        System.out.println(getUserPhoneNumber());
     }
 
     public Viewer(Application application) {
         super(application);
     }
-    public Viewer(String name,String emailId, String password,String number,String dob,Country Country,Application application){
-        super(name,emailId,password,number,dob,application);
+    public Viewer(ViewerProfile viewerProfile){
+        super(viewerProfile.getUserName(),viewerProfile.getUserEmailID(),viewerProfile.getPassword(),viewerProfile.getUserPhoneNumber(), viewerProfile.getDataOfBirth(),Application.installApplication());
     }
 
     @Override
@@ -32,13 +72,10 @@ public class Viewer extends User{
 
     @Override
     public void interactToTheVideo() {
-
+        getApplication().getVideoPlayer().getCurrentVideo().channel.getSubscribersCount();
     }
 
-    public void display(){
-        System.out.println(this.getUserEmailID()==null?"Name less Creature":"Current user is :"+this.getUserName());
-        getApplication().display();
-    }
+
     //attribute
 //    private String userName;
 //    private final String userEmailID;

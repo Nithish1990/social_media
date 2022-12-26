@@ -1,6 +1,6 @@
 package user;
 import application.Application;
-import application.utilities.constant.category.AgeCategory;
+import application.user.ViewerProfile;
 import application.utilities.constant.category.Category;
 import application.utilities.constant.country.Country;
 import application.utilities.helper.CustomScanner;
@@ -22,23 +22,22 @@ public abstract class User {
     private String dataOfBirth;//will be changed to date
     private boolean eighteenPlus;// naming is not convenient to be change
     private Country country;
-    private boolean primeUser;//doubt
-    private boolean isBannedUser;// doubt // if user is banned cant post cmt
+//    private boolean primeUser;//doubt
+//    private boolean isBannedUser;// doubt // if user is banned cant post cmt
     private ArrayList<Channel> subscriptionList;
     private ArrayList<Thumbnail> watchLaterVideo;
     private Stack<Thumbnail> notification;
 
     private Stack<Thumbnail> watchHistory;
-    private Stack<Video> previousVideo;
+    private Stack<Video> previousVideo;// stored in local storage
     //content creator
-    private long amountEarned;
+//    private long amountEarned;
     private List<Channel>channelList;
     private Channel currentChannel;
 
     //objets
     private Application application;
     private LocalStorage localStorage;
-
 
 
     // methods
@@ -51,22 +50,14 @@ public abstract class User {
     public void refresh(){}
     public abstract User signUp();
     public abstract User logIn();
-    public void switchToChannel(){
-        currentChannel = channelList.get(0);
-    }
-    public Channel createChannel(String name, String about, Category category){
-        return new Channel(name,about,category,this);
-    }
-    public void makeVideo(){
-        String title = CustomScanner.scanString("Enter Title: ");
-        System.out.println("Recording");
-        int userInput = CustomScanner.scanInt("Enter to stop");
-        localStorage.storeVideo(title,new VideoClip(title,10,10));
-    }//-> user can make video
-    public void uploadVideo(VideoClip video){
-        getApplication().uploadVideo(video,this);
-        this.getCurrentChannel();
-    }// -> user will upload video from local storage
+    public abstract void switchToChannel();
+    public abstract  Channel createChannel();
+    public abstract void makeVideo();//                                                                                                                                         String title = CustomScanner.scanString("Enter Title: ");//        System.out.println("Recording");//        int userInput = CustomScanner.scanInt("Enter to stop");//        localStorage.storeVideo(title,new VideoClip(title,10,10));
+//    }//-> user can make video
+    public  abstract void uploadVideo();//                                                                                                                                  System.out.println(this.getLocalStorage());//        String selectedVideoName = CustomScanner.scanString("Enter Name for uploading");//        VideoClip selectedVideo = this.getLocalStorage().getVideo(selectedVideoName);//        getApplication().uploadVideo(selectedVideo,this);
+//    }// -> user will upload video from local storage
+    public abstract void display();
+    public abstract void viewProfile();
     public void withdraw(int amountEarned){}
     // mediaPlayer methods
     public void volumeChange(int volume){}
@@ -95,14 +86,11 @@ public abstract class User {
         this.dataOfBirth = dataOfBirth;
         this.eighteenPlus = false;
         this.country = Country.INDIA;
-        this.primeUser = false;
-        this.isBannedUser = false;
         this.subscriptionList = new ArrayList<>();
         this.watchLaterVideo = new ArrayList<>();
         this.notification = new Stack<>();
         this.watchHistory = new Stack<>();
         this.previousVideo = new Stack<>();
-        this.amountEarned = 0;
         this.channelList = new ArrayList<>();
         this.application = application;
         this.localStorage = new LocalStorage();
@@ -167,21 +155,6 @@ public abstract class User {
         this.country = country;
     }
 
-    public boolean isPrimeUser() {
-        return primeUser;
-    }
-
-    public void setPrimeUser(boolean primeUser) {
-        this.primeUser = primeUser;
-    }
-
-    public boolean isBannedUser() {
-        return isBannedUser;
-    }
-
-    public void setBannedUser(boolean bannedUser) {
-        isBannedUser = bannedUser;
-    }
 
     public ArrayList<Channel> getSubscriptionList() {
         return subscriptionList;
@@ -223,13 +196,6 @@ public abstract class User {
         this.previousVideo = previousVideo;
     }
 
-    public long getAmountEarned() {
-        return amountEarned;
-    }
-
-    public void setAmountEarned(long amountEarned) {
-        this.amountEarned = amountEarned;
-    }
 
     public List<Channel> getChannelList() {
         return channelList;
@@ -241,7 +207,8 @@ public abstract class User {
 
     public Channel getCurrentChannel() {
         if(currentChannel == null){
-            currentChannel = createChannel(this.userName,"Default",Category.DEFAULT);
+//            currentChannel = createChannel(this.userName,"Default",Category.DEFAULT);
+            currentChannel = createChannel();
         }
         return currentChannel;
     }
@@ -261,6 +228,7 @@ public abstract class User {
     public LocalStorage getLocalStorage() {
         return localStorage;
     }
+
 
     public void setLocalStorage(LocalStorage localStorage) {
         this.localStorage = localStorage;

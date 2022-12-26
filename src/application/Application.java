@@ -1,7 +1,9 @@
 package application;
 
 import application.authentication.Authenticator;
+import application.authentication.SignUP;
 import application.database.Database;
+import application.user.ViewerProfile;
 import application.utilities.SearchBar;
 import application.utilities.constant.category.AgeCategory;
 import application.utilities.constant.category.Category;
@@ -11,10 +13,13 @@ import application.utilities.helper.CustomScanner;
 import application.video.Thumbnail;
 import application.video.Video;
 import application.videoplayer.VideoPlayer;
+import user.NonSignedVIewer;
 import user.User;
 import user.VideoClip;
 import user.Viewer;
+import user.channel.Channel;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +38,18 @@ public class Application {
 
 
     //Authenticate
-    public Viewer logIn(User user){
-        return authenticator.logIn(user);
+    public User logIn(){
+        String emailId = CustomScanner.scanString("Enter emailId"),password = CustomScanner.scanString("Enter password");
+
+        User user  = authenticator.logIn(emailId,password,database.getViewerDB());
+        if(user == null)user = new NonSignedVIewer(this);
+        return user;
     }
-    public Viewer signUp(User user){
-        return authenticator.signUp(user);
+    public User signUp(){
+        ViewerProfile viewerProfile = SignUP.signUP();
+        User user = authenticator.signUp(viewerProfile,database.getViewerDB());
+        if(user == null)user = new NonSignedVIewer(this);
+        return user;
     }
     public List<Thumbnail> search(String searchQuery){
         return searchBar.searchByName(searchQuery);
@@ -48,8 +60,10 @@ public class Application {
     Sigleton
      */
     private static Application application;
-    public void uploadVideo(VideoClip videoClip, User user){
-        System.out.println("Upload");
+    public void uploadVideo(User user){
+        System.out.println(user.getLocalStorage());
+        String selectedVideoName = CustomScanner.scanString("Enter Name for uploading");
+        VideoClip videoClip = user.getLocalStorage().getVideo(selectedVideoName);
         if(user.getCurrentChannel()!=null) {
             try {
                 String title = CustomScanner.scanString("Enter video Title: "), description = CustomScanner.scanString("Enter Video Description");
@@ -71,8 +85,8 @@ public class Application {
     }
     private Application() {
         this.appTitle = "inum mudivu pannala";
-        this.database = Database.installDatabase();
-        this.authenticator = new Authenticator(database,this);
+        this.database = Database.setUpDatabase();
+        this.authenticator = new Authenticator(this);
         this.videoPlayer = new VideoPlayer();
         this.searchBar = new SearchBar();
         this.display = new Display();
@@ -83,7 +97,10 @@ public class Application {
         }
         return application;
     }
-
+    public Channel createChannel(User user){
+        String name = CustomScanner.scanString("Enter the name for the channel"),about = CustomScanner.scanString("Enter about");
+        return new Channel(name,about,Category.DEFAULT,database.getViewerDB().get(user.getUserEmailID()));
+    }
     public String getAppTitle() {
         return appTitle;
     }
