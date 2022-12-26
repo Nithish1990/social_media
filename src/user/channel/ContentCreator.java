@@ -15,7 +15,7 @@ public class ContentCreator extends User {
 
     @Override
     public void selectVideoAndWatch(int position) {
-
+        getApplication().playVideo(position);
     }
 
     @Override

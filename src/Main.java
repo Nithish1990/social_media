@@ -10,12 +10,17 @@ import java.util.List;
 public class Main {
     static Application application;
     static User user;
+
+
     public static void main(String[] args) {
         // doubt main does create app
         application = Application.installApplication();
         user = new NonSignedVIewer(application);
         open();
     }
+
+
+
     public static void contentCreator(){
 
         while (true) {
@@ -49,20 +54,18 @@ public class Main {
             int userInputInt = CustomScanner.scanInt("Options are \n1 select Video \n2 refresh\n3 search\n5 View Profile");
             switch (userInputInt){
                 case 1:
-                    viewer.selectVideoAndWatch(0);
+                    viewer.selectVideoAndWatch(CustomScanner.scanInt("Enter position"));
                     break;
                 case 2:// refresh
                     viewer.refresh();
                     break;
                 case 3:// search
                     List<Thumbnail> videosList;// = viewer.search(CustomScanner.scanString("search...?"));
-
                     break;
                 case 4:
                     viewer.interactToTheVideo();
                     break;
                 case 5:// view profile
-
                     viewer.viewProfile();
                     break;
                 case 6://change to content creator manually
